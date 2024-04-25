@@ -9,7 +9,8 @@ const todoStore = useTodoStore()
 const notification = ref(null)
 
 function addTask(){
-    const data = {
+    if(todoType.value !== '' && selectStatus.value !== ''){
+        const data = {
         id: Date.now(),
         tasks: todoType.value,
         status: selectStatus.value
@@ -17,9 +18,16 @@ function addTask(){
     todoStore.addTodo(data)
     todoType.value = ""
     selectStatus.value = ""
+    }else{
+        alert('You Cannot remail field empty')
+        todoType.value = ""
+        selectStatus.value = ""
+    }
+    
 }
 
-function clearForm(){
+function clearForm(e){
+    e.preventDefault()
     todoType.value = ""
     selectStatus.value = ""
 }
@@ -41,8 +49,8 @@ function clearForm(){
                         <option value="Finished">Finished</option>
                     </select>
                     <div class=" flex justify-center items-center gap-x-2">
-                        <BaseBtn class=" flex-1 bg-white text-black" btnText="Clear" @clearForm="clearForm" />
-                        <BaseBtn class="flex-1" btnText="Add Task"/>
+                        <BaseBtn class=" flex-1 bg-white text-black"  @click="clearForm">Clear</BaseBtn>
+                        <BaseBtn class="flex-1 text-white"> Add Task </BaseBtn>
                     </div>        
                 </form>
             </div>

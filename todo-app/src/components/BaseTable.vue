@@ -35,22 +35,10 @@ function modalOpen(data){
                 <td class="border-2 px-2 py-2">{{ todo.tasks }}</td>
                 <td class="border-2 px-2 py-2">{{todo.status}}</td>
                 <td class="border-2 lg:flex md:flex flex-col justify-around items-center px-2 py-2">
-                    <button @click="modalOpen(todo)"><span class="material-icons text-blue-600  ">edit</span></button>
+                    <button @click="modalOpen(todo.id)"><span class="material-icons text-blue-600  ">edit</span></button>
                     <button @click="deleteTask(todo)"><span class="material-icons text-red-600 ">delete</span></button>
                 </td>
             </tr>
         </template>
-        <!-- <tr>
-                <td class="border-2">2</td>
-                <td class="border-2">Task 2</td>
-                <td class="border-2">Not Started</td>
-                <td class="border-2"></td>
-                </tr>
-                <tr>
-                <td class="border-2">3</td>
-                <td class="border-2">Task 3</td>
-                <td class="border-2">Finished</td>
-                <td class="border-2"></td>
-                </tr> -->
     </table>
 </template>

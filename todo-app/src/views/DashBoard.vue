@@ -8,29 +8,38 @@ import BaseToast from '@/components/BaseToast.vue'
 
 const OpenModal = ref(false)
 const todoStore = useTodoStore()
-const tasksObj = ref()
+let tasksObj = ref(null)
 const positiveMsg = ref(false)
 const filterTasks = ref('all')
 const searchTasks = ref('')
 
 function showModal(data){
-    console.log(data, 'Parent component');
-    tasksObj.value = data
-    console.log(tasksObj.value);
+    const selectedTask  = todoStore.todos.find( item => item.id === data)
+    tasksObj.value = {...selectedTask}
     OpenModal.value = true
 
 }
 
  function updateTask(){
-    console.log('hello');
-    positiveMsg.value = true
+    if(tasksObj.value.tasks !== '' && tasksObj.value.status !== ''){
+        positiveMsg.value = true
     const data = tasksObj.value
     todoStore.addTodo(data)
     OpenModal.value = false
     setTimeout(() => {
         positiveMsg.value = false
     }, 3000)
+    }else{
+        alert('You Cannot remail field empty')
+    }
     
+    
+
+}
+
+function closeForm(e){
+    e.preventDefault()
+    OpenModal.value = false
 
 }
 
@@ -93,8 +102,8 @@ const filterTaskLists = computed(() => {
                         <option value="Finished">Finished</option>
                     </select>
                     <div class=" flex justify-center items-center gap-x-2">
-                        <BaseBtn class=" flex-1 bg-white text-black" btnText="Clear" />
-                        <BaseBtn class="flex-1" btnText="Edit Task"/>
+                        <BaseBtn class=" flex-1 bg-white text-black"  @click="closeForm">close</BaseBtn>
+                        <BaseBtn class="flex-1 text-white"> Add Task </BaseBtn>
                     </div>        
                 </form>
         </div>
